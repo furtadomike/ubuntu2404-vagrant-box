@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  identity:
+    hostname: ubuntu
+    username: vagrant
+    password: "$6$rounds=4096$abcdefgh$D3XJHJhkQJqDPvA5QUoz4ucpCVy8IdkPxkj1uvLrXcsB04ZKzZlRL7EMuoFvRkUeFvwJyl08FLfDYC1GjpbWx/"
+    # This is a SHA-512 hash of the password "vagrant"
+
+  ssh:
+    install-server: true
+    authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1YdxBpNlzxDqfJyw/QKow1F+wvG9hXGoqiysfJOn5Y vagrant insecure public key
+    allow-pw: true
+    # Allows both key and password-based SSH login
+
+  storage:
+    layout:
+      name: direct
+    # Uses the entire disk automatically (no manual partitioning)
+
+  packages:
+    - sudo
+    - openssh-server
+    - curl
+    - wget
+
+  user-data:
+    disable_root: false
+    # Allows root login (not typical in production, but useful for Vagrant)
+
